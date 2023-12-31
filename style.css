@@ -1,10 +1,22 @@
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 3rem 5rem;
+}
+
+.content {
+  z-index: 100;
+  width: 95%;
+  background-color: darkred;
+  border-radius: 5px;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 h1 {
@@ -14,4 +26,28 @@ h1 {
 
 h1, #attack, #number {
   color: aliceblue;
+  width: 100%;
+  text-align: center;
+}
+
+#attack, #number {
+  padding: 0.5rem;
+  border: 1px solid #fff;
+  width: 90%;
+  border-radius: 5px;
+}
+
+
+button {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(158, 135, 8);
+  color: aliceblue;
+  font-size: 1rem;
+  cursor: pointer;
 }
