@@ -29,8 +29,8 @@ const updateUI = () => {
   number.innerText = num;
 
   let attackType = randomiseAttackOrDefend();
-  const LowLevelAttack = num === 3 || num === 4
-  if (attackType === "Block" && randomiseStandardorReverse() === "reverse" && !LowLevelAttack) {
+  const horizontalBlock = num === 7 || num === 8 || num === 9;
+  if (attackType === "Block" && randomiseStandardorReverse() === "reverse" && !horizontalBlock) {
     attackType = "Reverse block";
   }
   attack.innerText = attackType;
