@@ -203,10 +203,15 @@ class JumpToHyperspace {
     }
   }
   bind = () => {
-    this.canvas.addEventListener('mousedown', this.initiate)
-    this.canvas.addEventListener('touchstart', this.initiate)
-    this.canvas.addEventListener('mouseup', this.enter)
-    this.canvas.addEventListener('touchend', this.enter)
+    const jumpButton = document.getElementById('jump');
+    if (jumpButton) {
+      jumpButton.addEventListener('mousedown', this.initiate);
+      jumpButton.addEventListener('touchstart', this.initiate);
+      jumpButton.addEventListener('mouseup', this.enter);
+      jumpButton.addEventListener('touchend', this.enter);
+    } else {
+      console.warn('Element with ID "jump" not found.');
+    }
   }
   setup = () => {
     this.context.lineCap = 'round'
