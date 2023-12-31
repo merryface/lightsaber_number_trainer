@@ -2,12 +2,16 @@ const attack = document.getElementById("attack");
 const number = document.getElementById("number");
 const startStop = document.getElementById("startStop");
 
+let lowestTime = 6;
+let highestTime = 10; 
+let moveCount = 0;
+let intervalId;
+
 const randomiseStandardorReverse = () => Math.random() < 0.5 ? "standard" : "reverse";
 const randomiseAttackOrDefend = () => Math.random() < 0.5 ? "Attack" : "Block";
 const randomOneToNine = () => Math.floor(Math.random() * 9) + 1;
-const generateRandomTimeInterval = (lowestTime, highestTime) => {
-  const range = highestTime - lowestTime;
-  const seconds = Math.floor(Math.random() * (range + 1)) + lowestTime;
+const generateRandomTimeInterval = () => {
+  const seconds = Math.floor(Math.random() * (highestTime - lowestTime + 1)) + lowestTime;
   return seconds * 1000;
 };
 
@@ -20,9 +24,6 @@ const speak = (text) => {
   speechSynthesis.speak(utterance);
 };
 
-
-let intervalId;
-
 const updateUI = () => {
   const num = randomOneToNine();
   number.innerText = num;
@@ -33,6 +34,12 @@ const updateUI = () => {
   }
   attack.innerText = attackType;
   speak(`${attackType}, ${num}`);
+
+  moveCount++;
+  if (moveCount % 5 === 0) {
+    if (lowestTime > 3) lowestTime--;
+    if (highestTime > 3) highestTime--;
+  }
 };
 
 const start = () => {
@@ -40,11 +47,16 @@ const start = () => {
   startStop.removeEventListener('click', start);
   startStop.addEventListener('click', stop);
 
-  updateUI();
+  updateUI(); // Initial update
   intervalId = setInterval(() => {
-    updateUI();
-  }, generateRandomTimeInterval(5,10));
+    updateUI(); // Repeated updates
+
+    // Adjust the interval time
+    clearInterval(intervalId);
+    intervalId = setInterval(updateUI, generateRandomTimeInterval());
+  }, generateRandomTimeInterval());
 };
+
 
 const stop = () => {
   clearInterval(intervalId);
