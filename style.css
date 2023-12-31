@@ -71,3 +71,22 @@ button {
 .selected {
   border: rgb(235, 238, 237) 3px solid;
 }
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: aliceblue;
+  font-size: 1rem;
+  margin: 0 1rem;
+  font-family: sans-serif;
+  border: 1px solid aliceblue;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+
+}

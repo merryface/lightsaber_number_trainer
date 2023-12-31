@@ -131,6 +131,9 @@ const updateUI = () => {
     speak(`Set Complete!`);
     currentId = 0;
     stop();
+    startStop.innerText = "Restart";
+    attack.innerText = "Deactivate your saber";
+    number.innerText = "# Number";
   }
 };
 
