@@ -51,3 +51,23 @@ button {
   font-size: 1rem;
   cursor: pointer;
 }
+
+#jedi, #sith {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectRole {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: -3rem;
+}
+.selected {
+  border: rgb(235, 238, 237) 3px solid;
+}
