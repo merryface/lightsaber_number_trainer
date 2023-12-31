@@ -8,7 +8,7 @@ const randomOneToNine = () => Math.floor(Math.random() * 9) + 1;
 const generateRandomTimeInterval = (lowestTime, highestTime) => {
   const range = highestTime - lowestTime;
   const seconds = Math.floor(Math.random() * (range + 1)) + lowestTime;
-  return seconds * 1000; // Convert to milliseconds
+  return seconds * 1000;
 };
 
 
