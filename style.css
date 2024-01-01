@@ -1,18 +1,13 @@
-body {
-  height: 100vh;
-}
-
-main {
-  max-width: 900px;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2rem 5rem;
+  margin: auto;
+  max-width: 900px;
+  width: 95%;
   margin-bottom: 0;
+  padding-top: 2rem;
 }
 
 .content {
@@ -59,6 +54,10 @@ button {
   color: aliceblue;
   font-size: 1rem;
   cursor: pointer;
+}
+
+#jump {
+  margin-bottom: 0;
 }
 
 #jedi, #sith {
@@ -110,11 +109,12 @@ a {
   align-items: center;
   gap: 0.2rem;
   padding: 1rem;
-  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .partSelector button {
   flex: 1 1 33.3333%;
+  margin:0;
 }
 
 .setCount {
