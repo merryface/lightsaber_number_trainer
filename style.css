@@ -1,9 +1,14 @@
+body {
+  overflow: hidden;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 3rem 5rem;
+  margin: 2rem 5rem;
+  margin-bottom: 0;
 }
 
 .content {
@@ -88,5 +93,20 @@ a {
   border: 1px solid aliceblue;
   border-radius: 5px;
   padding: 0.5rem 1rem;
+}
 
+.partSelector {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.partSelector button {
+  width: 4rem;
 }

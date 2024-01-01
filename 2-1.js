@@ -3,6 +3,13 @@ const number = document.getElementById("number");
 const startStop = document.getElementById("startStop");
 const selectSith = document.getElementById("selectSith");
 const selectJedi = document.getElementById("selectJedi");
+const part1Btn = document.getElementById("p1");
+const part2Btn = document.getElementById("p2");
+const part3Btn = document.getElementById("p3");
+const part4Btn = document.getElementById("p4");
+const part5Btn = document.getElementById("p5");
+const part6Btn = document.getElementById("p6");
+const fullBtn = document.getElementById("full");
 
 selectSith.addEventListener('click', () => {
   currentSide = "sith";
@@ -20,9 +27,42 @@ selectJedi.addEventListener('click', () => {
   selectJedi.classList.add('selected');
 });
 
-let intervalId;
-let currentSide = "jedi";
+let intervalId
+let currentSide = "jedi"
 let currentId = 0
+let selectedPartEnd = 29
+
+
+const parts = [
+  [0,4, part1Btn],
+  [5,8, part2Btn],
+  [9,13, part3Btn],
+  [14,17, part4Btn],
+  [18,23, part5Btn],
+  [24,29, part6Btn],
+  [0,29, fullBtn]
+]
+
+// Add event listeners to parts, set currentId and selectedPartEnd
+parts.forEach((part, id) => {
+  part[2].addEventListener('click', () => {
+    currentId = part[0]
+    selectedPartEnd = part[1]
+
+    parts.forEach((p, j) => {
+      if (j > id) {
+        p[2].classList.remove('selected');
+      }
+
+      if (j < id) {
+        p[2].classList.add('selected');
+      }
+    })
+    
+    part[2].classList.add('selected');
+  })
+});
+
 
 const sithSide = [
   { number: 8, type: "A" },
@@ -95,8 +135,6 @@ const jediSide = [
 
 const generateTimeInterval = (sec) => sec * 1000;
 
-
-
 const speak = (text) => {
   if (speechSynthesis.speaking) {
       speechSynthesis.cancel(); // Cancel any ongoing speech
@@ -117,7 +155,7 @@ const start = () => {
 const updateUI = () => {
   const moves = currentSide === "jedi" ? jediSide : sithSide;
 
-  if (currentId < moves.length) {
+  if (currentId <= selectedPartEnd) {
     const num = moves[currentId].number;
     number.innerText = num;
 
@@ -128,7 +166,7 @@ const updateUI = () => {
     
     currentId++; // Increment to the next move
   } else {
-    speak(`Set Complete!`);
+    speak(`Set Complete! Well done apprentice.`);
     currentId = 0;
     stop();
     startStop.innerText = "Restart";
