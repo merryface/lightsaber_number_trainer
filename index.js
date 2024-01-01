@@ -5,6 +5,7 @@ const startStop = document.getElementById("startStop");
 let lowestTime = 5;
 let highestTime = 8; 
 let moveCount = 0;
+let lastNum;
 let intervalId;
 
 const randomiseStandardorReverse = () => Math.random() < 0.5 ? "standard" : "reverse";
@@ -26,18 +27,19 @@ const speak = (text) => {
 
 const updateUI = () => {
   const num = randomOneToNine();
+  while (num === lastNum) num = randomOneToNine(); // Prevent the same number twice in a row
   number.innerText = num;
 
   let attackType = randomiseAttackOrDefend();
-  const horizontalBlock = num === 7 || num === 8 || num === 9;
-  if (attackType === "Block" && randomiseStandardorReverse() === "reverse" && !horizontalBlock) {
+  const nonReverseBlocks = num === 7 || num === 8 || num === 9 || num === 4 || num === 3;
+  if (attackType === "Block" && randomiseStandardorReverse() === "reverse" && !nonReverseBlocks) {
     attackType = "Reverse block";
   }
   attack.innerText = attackType;
   speak(`${attackType}, ${num}`);
 
   moveCount++;
-  if (moveCount % 5 === 0) {
+  if (moveCount % 4 === 0) {
     if (lowestTime > 2) lowestTime--;
     if (highestTime > 2) highestTime--;
   }
