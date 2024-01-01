@@ -1,15 +1,21 @@
+document.addEventListener('DOMContentLoaded', (event) => {
 const attack = document.getElementById("attack");
 const number = document.getElementById("number");
 const startStop = document.getElementById("startStop");
 const selectSith = document.getElementById("selectSith");
 const selectJedi = document.getElementById("selectJedi");
-const part1Btn = document.getElementById("p1");
-const part2Btn = document.getElementById("p2");
-const part3Btn = document.getElementById("p3");
-const part4Btn = document.getElementById("p4");
-const part5Btn = document.getElementById("p5");
-const part6Btn = document.getElementById("p6");
-const fullBtn = document.getElementById("full");
+
+let intervalId;
+let currentSide = "jedi";
+let currentId = 0;
+let selectedPartEnd = 29;
+
+const stop = () => {
+  clearInterval(intervalId);
+  startStop.innerText = "Start";
+  startStop.removeEventListener('click', stop);
+  startStop.addEventListener('click', start);
+};
 
 selectSith.addEventListener('click', () => {
   currentSide = "sith";
@@ -27,42 +33,29 @@ selectJedi.addEventListener('click', () => {
   selectJedi.classList.add('selected');
 });
 
-let intervalId
-let currentSide = "jedi"
-let currentId = 0
-let selectedPartEnd = 29
-
-
 const parts = [
-  [0,4, part1Btn],
-  [5,8, part2Btn],
-  [9,13, part3Btn],
-  [14,17, part4Btn],
-  [18,23, part5Btn],
-  [24,29, part6Btn],
-  [0,29, fullBtn]
-]
+  [0, 4, document.getElementById("p1")],
+  [5, 8, document.getElementById("p2")],
+  [9, 13, document.getElementById("p3")],
+  [14, 17, document.getElementById("p4")],
+  [18, 23, document.getElementById("p5")],
+  [0, 29, document.getElementById("full")]
+];
 
-// Add event listeners to parts, set currentId and selectedPartEnd
 parts.forEach((part, id) => {
   part[2].addEventListener('click', () => {
-    currentId = part[0]
-    selectedPartEnd = part[1]
+    currentId = part[0];
+    selectedPartEnd = part[1];
 
     parts.forEach((p, j) => {
-      if (j > id) {
+      if (j <= id) {
+        p[2].classList.add('selected');
+      } else {
         p[2].classList.remove('selected');
       }
-
-      if (j < id) {
-        p[2].classList.add('selected');
-      }
-    })
-    
-    part[2].classList.add('selected');
-  })
+    });
+  });
 });
-
 
 const sithSide = [
   { number: 8, type: "A" },
@@ -132,24 +125,14 @@ const jediSide = [
   { number: 5, type: "A" }
 ];
 
-
 const generateTimeInterval = (sec) => sec * 1000;
 
 const speak = (text) => {
   if (speechSynthesis.speaking) {
-      speechSynthesis.cancel(); // Cancel any ongoing speech
+      speechSynthesis.cancel();
   }
   let utterance = new SpeechSynthesisUtterance(text);
   speechSynthesis.speak(utterance);
-};
-
-const start = () => {
-  startStop.innerText = "STOP";
-  startStop.removeEventListener('click', start);
-  startStop.addEventListener('click', stop);
-
-  updateUI(); // Initial update
-  intervalId = setInterval(updateUI, generateTimeInterval(2)); // Set interval for repeated updates
 };
 
 const updateUI = () => {
@@ -160,11 +143,10 @@ const updateUI = () => {
     number.innerText = num;
 
     let attackType = moves[currentId].type === "A" ? "Attack" : "Block";
-
     attack.innerText = attackType;
     speak(`${attackType}, ${num}`);
     
-    currentId++; // Increment to the next move
+    currentId++;
   } else {
     speak(`Set Complete! Well done apprentice.`);
     currentId = 0;
@@ -175,12 +157,14 @@ const updateUI = () => {
   }
 };
 
+const start = () => {
+  startStop.innerText = "STOP";
+  startStop.removeEventListener('click', start);
+  startStop.addEventListener('click', stop);
 
-const stop = () => {
-  clearInterval(intervalId);
-  startStop.innerText = "Start";
-  startStop.removeEventListener('click', stop);
-  startStop.addEventListener('click', start);
+  updateUI();
+  intervalId = setInterval(updateUI, generateTimeInterval(2));
 };
 
 startStop.addEventListener('click', start);
+});
