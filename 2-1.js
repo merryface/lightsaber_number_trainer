@@ -8,7 +8,7 @@ const selectJedi = document.getElementById("selectJedi");
 let intervalId;
 let currentSide = "jedi";
 let currentId = 0;
-let selectedPartEnd = 29;
+let selectedPartEnd = 30;
 
 const stop = () => {
   clearInterval(intervalId);
@@ -39,7 +39,7 @@ const parts = [
   [9, 13, document.getElementById("p3")],
   [14, 17, document.getElementById("p4")],
   [18, 23, document.getElementById("p5")],
-  [0, 29, document.getElementById("full")]
+  [0, 30, document.getElementById("full")]
 ];
 
 parts.forEach((part, id) => {
@@ -145,6 +145,7 @@ const updateUI = () => {
     let attackType = moves[currentId].type === "A" ? "Attack" : "Block";
     attack.innerText = attackType;
     speak(`${attackType}, ${num}`);
+    console.log(`${attackType}, ${num}`);
     
     currentId++;
   } else {
